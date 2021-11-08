@@ -33,19 +33,30 @@ public class ProductDAOFile implements ProductDAO{
     }
     
     private boolean readProductFromFileToList(String fileName){
-        Product p = null;
+//        Product p = null;
         FileInputStream fis = null;
         ObjectInputStream ios = null;
         try {
             fis = new FileInputStream(fileName);
             ios = new ObjectInputStream(fis);
-            while(fis.available() > 0)
-            {
-                ProductList.add((Product)ios.readObject());
-            }
+            ProductList = (ArrayList<Product>)ios.readObject();
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
-        }   
+        } finally {
+            if (ios != null)
+                try {
+                    ios.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ProductDAOFile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (fis != null)
+                try {
+                    fis.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ProductDAOFile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         isReadProductFromFile = true;
         return true;
     }
@@ -92,7 +103,7 @@ public class ProductDAOFile implements ProductDAO{
         Product p = null;
         if (!isReadProductFromFile && !readProductFromFileToList(ProductFileName))
         {
-            System.out.println("Not found product");
+            // do nothing
         }
         else
         {
@@ -106,8 +117,8 @@ public class ProductDAOFile implements ProductDAO{
 
     @Override
     public String getProductsString() {
-        if (!isReadProductFromFile)
-            readProductFromFileToList(ProductFileName);
+        if (!isReadProductFromFile && !readProductFromFileToList(ProductFileName))
+            return "";
         StringBuilder allProductString = new StringBuilder("");
         for (Product i : ProductList){
             allProductString.append(i.toString());

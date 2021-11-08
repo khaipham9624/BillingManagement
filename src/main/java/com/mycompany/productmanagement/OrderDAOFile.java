@@ -31,21 +31,32 @@ public class OrderDAOFile implements OrderDAO{
     
     private boolean readOrderFromFileToList(String fileName){
         Order o = null;
-        if (!isReadOrderFromFile)
-        {
-            FileInputStream fis = null;
-            ObjectInputStream ios = null;
+        FileInputStream fis = null;
+        ObjectInputStream ios = null;
             try {
                 fis = new FileInputStream(fileName);
                 ios = new ObjectInputStream(fis);
-                while(fis.available() > 0)
-                {
-                    OrderList.add((Order)ios.readObject());
-                }
+                OrderList = (ArrayList<Order>)ios.readObject();
             } catch (Exception e) {
                 return false;
-            }   
-        }
+            } finally
+            {
+                if (ios != null){
+                    try {
+                        ios.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrderDAOFile.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (fis != null)
+                {
+                    try {
+                        fis.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrderDAOFile.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
         isReadOrderFromFile = true;
         return true;
     }
@@ -100,8 +111,8 @@ public class OrderDAOFile implements OrderDAO{
 
     @Override
     public String getOrdersString() {
-        if (!isReadOrderFromFile)
-            readOrderFromFileToList(OrderFileName);
+        if (!isReadOrderFromFile && !readOrderFromFileToList(OrderFileName))
+            return "";
         StringBuilder allProductString = new StringBuilder("");
         for (Order i : OrderList){
             allProductString.append(i.toString());

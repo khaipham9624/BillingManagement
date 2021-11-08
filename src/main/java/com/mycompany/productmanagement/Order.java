@@ -18,6 +18,7 @@ public class Order implements Serializable{
     private static ProductDAO productDAO = null;
     private String Id;
     private Map<String, Integer> order = null;
+    private double totalPrice = 0;
     public Order(String Id){
         this.Id = Id;
         order = new HashMap<>();
@@ -29,7 +30,8 @@ public class Order implements Serializable{
     }
     
     public boolean add(String productId, int quantity){
-        if (productDAO.getProduct(productId) != null)
+        Product p = null;
+        if ((p = productDAO.getProduct(productId)) != null)
         {
             Integer value = order.get(productId);
             if (value == null)
@@ -46,19 +48,35 @@ public class Order implements Serializable{
         order.put(productId, quantity);
     }
     
-    public Map<String, Integer> getOrder(){
-        return order;
+//    protected Map<String, Integer> getOrderList(){
+//        return order;
+//    }
+    
+    protected double getTotalPrice(){
+        totalPrice = 0;
+        for (Map.Entry item : order.entrySet())
+        {
+            totalPrice += productDAO.getProduct(item.getKey().toString()).getPrice() * (int)item.getValue();
+        }
+        return totalPrice;
     }
 
     public String toString(){
         StringBuilder str = new StringBuilder();
+        str.append("Product,Unit Price, Quantity, Price");
+        
         for (Map.Entry item : order.entrySet())
         {
-            str.append("Item: ");
-            str.append(((Product)item.getKey()).getName());
+            double unitPrice = productDAO.getProduct(item.getKey().toString()).getPrice();
+            int quantity = (int)item.getValue();
             str.append("\n");
-            str.append("Total: ");
-            str.append(item.getValue());
+            str.append(productDAO.getProduct(item.getKey().toString()).getName());
+            str.append(", ");
+            str.append(unitPrice);
+            str.append(", ");
+            str.append(quantity);
+            str.append(", ");
+            str.append(unitPrice * quantity);
         }
         return str.toString();
     }

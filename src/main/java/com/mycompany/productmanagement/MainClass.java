@@ -19,13 +19,11 @@ public class MainClass {
         productDAO.addProduct(product);
         productDAO.addProduct(product2);
         productDAO.addProduct(product3);
-//        System.out.println(productDAO.getProductsString());
-//        product.setPrice(15);
-//        productDAO.updateProduct(product);
-//        System.out.println(productDAO.getProductsString());
-//        productDAO.deleteProduct(product2);
+        System.out.println(productDAO.getProductsString());
+        product.setPrice(15);
+        productDAO.updateProduct(product);
+        productDAO.deleteProduct(product2);
         System.out.println(productDAO.getProductsString());
         System.out.println("-----------");
-        
     }
 }
