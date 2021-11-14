@@ -5,6 +5,11 @@
  */
 package com.mycompany.productmanagement;
 
+import com.mycompany.productmanagement.model.Order;
+import com.mycompany.productmanagement.dao.OrderDAOFactory;
+import com.mycompany.productmanagement.model.Bill;
+import com.mycompany.productmanagement.dao.OrderDAO;
+
 /**
  *
  * @author Khai
