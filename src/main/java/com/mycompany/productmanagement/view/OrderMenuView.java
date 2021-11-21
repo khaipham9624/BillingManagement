@@ -6,23 +6,20 @@
 package com.mycompany.productmanagement.view;
 
 import com.mycompany.productmanagement.utils.InputUtils;
-import java.util.Scanner;
 
 /**
  *
  * @author Khai
  */
-public class ProductMenuView {
-    public ProductMenuView(){
+public class OrderMenuView {
+
+    public OrderMenuView() {
     }
-     
     public int getAction(){
-        System.out.println("Choose an option:");
-        System.out.println("1) Show products");
-        System.out.println("2) Add a product");
-        System.out.println("3) Update a product");
-        System.out.println("4) Delete a product");
+        System.out.println("1) Add product to this order");
+        System.out.println("2) Show this order");
         int action = InputUtils.getIntFromKeyBoard();
         return action;
     }
+    
 }

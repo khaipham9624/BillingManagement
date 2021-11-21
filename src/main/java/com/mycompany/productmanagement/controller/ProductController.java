@@ -30,9 +30,25 @@ public class ProductController {
         view.showProducts(allProduct);
     }
     
-    public boolean addProduct(){
+    public boolean addProduct()
+    {
         Product product = null;
         product = view.getInputProduct();
         return productDAO.addProduct(product);
+    }
+    
+    public boolean updateProduct()
+    {
+        Product product = null;
+        product = view.getInputProduct();
+        return productDAO.updateProduct(product);
+    }
+    
+    public boolean deleteProduct()
+    {
+        Product product = null;
+        String productId = view.getInputProductId();
+        product = productDAO.getProduct(productId);
+        return productDAO.deleteProduct(product);
     }
 }

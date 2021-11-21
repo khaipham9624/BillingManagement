@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  *
@@ -22,6 +23,14 @@ public class Order implements Serializable{
     private String Id;
     private Map<String, Integer> order = null;
     private double totalPrice = 0;
+    
+    public Order(){
+        this.Id = UUID.randomUUID().toString();
+
+        order = new HashMap<>();
+        productDAO = ProductDAOFactory.getProductDAOFile();
+    }
+    
     public Order(String Id){
         this.Id = Id;
         order = new HashMap<>();

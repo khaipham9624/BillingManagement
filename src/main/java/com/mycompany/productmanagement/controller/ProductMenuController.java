@@ -20,8 +20,9 @@ public class ProductMenuController {
     }
     
     public int getAction(){
-        view.showActionMenu();
-        int action = InputUtils.getIntFromKeyBoard();
+//        view.showActionMenu();
+//        int action = InputUtils.getIntFromKeyBoard();
+        int action = view.getAction();
         return action;
     }
 }

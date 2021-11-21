@@ -31,10 +31,7 @@ public class ProductView {
     public Product getInputProduct()
     {
         Product product = null;
-        System.out.println("Choose type of product you want to add:");
-        System.out.println("1) Food");
-        System.out.println("2) Drink");
-        int type = InputUtils.getIntFromKeyBoard();
+
         System.out.println("Input Product ID:");
         String productId = InputUtils.getStringFromKeyBoard();
         System.out.println("Input Product Name");
@@ -43,6 +40,10 @@ public class ProductView {
         String productDescription = InputUtils.getLineFromKeyBoard();
         System.out.println("Input Product Price");
         double price = InputUtils.getDoubleFromKeyBoard();
+        System.out.println("Input type of product:");
+        System.out.println("1) Food");
+        System.out.println("2) Drink");
+        int type = InputUtils.getIntFromKeyBoard();
         switch (type)
         {
             case 1: 
@@ -89,5 +90,12 @@ public class ProductView {
                 break;
         }
         return product;
+    }
+    
+    public String getInputProductId()
+    {
+        System.out.println("Input Product ID to delete");
+        String id = InputUtils.getStringFromKeyBoard();
+        return id;
     }
 }
